@@ -1,10 +1,39 @@
-# Structural Solver
+## Objetivo do projeto
 
-Aplicação educacional: motor de cálculo para viga biapoiada.
-Contém solver para cargas pontuais e distribuídas, geração de diagramas
-(effort cortante e momento) e memória de cálculo simples.
+Esta aplicação tem como objetivo auxiliar o ensino e a compreensão da análise estrutural,
+permitindo que o usuário visualize reações, diagramas de esforço cortante e momento fletor,
+além da memória de cálculo associada.
 
-Uso:
-- Instale dependências: pip install -r requirements.txt
-- Rode testes: pytest
-- Execute demo Streamlit: streamlit run app/main.py
+O sistema **não substitui** softwares profissionais de engenharia estrutural,
+sendo voltado para fins didáticos e conceituais.
+
+---
+
+## Convenções adotadas
+
+- Unidades:
+  - Força: kN
+  - Comprimento: m
+  - Momento: kN·m
+- Convenção de sinais:
+  - Cargas verticais positivas para baixo
+  - Reações positivas para cima
+  - Esforço cortante positivo conforme equilíbrio da porção à esquerda
+  - Momento fletor positivo conforme concavidade para cima
+
+---
+
+## Escopo atual
+
+Versão atual (v0.1):
+- Vigas biapoiadas
+- Cargas pontuais
+- Cargas distribuídas uniformes
+- Geração de diagramas V(x) e M(x)
+- Memória de cálculo resumida
+
+Funcionalidades fora do escopo atual:
+- Pórticos
+- Treliças
+- Grelhas
+- Análise não linear
