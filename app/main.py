@@ -1,15 +1,27 @@
 import streamlit as st
 import json
 import matplotlib.pyplot as plt
+from pathlib import Path
+import sys
+
+# ---------------------------
+# Ajuste de path para imports
+# ---------------------------
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR))
 
 from engine.engine_api import run_beam_analysis
 
+# ---------------------------
+# Configuração do Streamlit
+# ---------------------------
 st.set_page_config(
-    page_title="Structural Solver – Vigas",
+    page_title="Isostática Interativa",
     layout="wide"
 )
 
-st.title("Structural Solver – Análise de Vigas (Didático)")
+st.title("Isostática Interativa")
+st.caption("Ferramenta educacional para análise de estruturas isostáticas")
 
 st.markdown(
     """
@@ -19,25 +31,27 @@ st.markdown(
     """
 )
 
-# -------------------------------------------------
+# ---------------------------
 # Entrada de dados
-# -------------------------------------------------
+# ---------------------------
 st.header("1. Dados de entrada")
 
-with open("examples/beam_simply_supported.json", "r", encoding="utf-8") as f:
+EXAMPLES_PATH = BASE_DIR / "examples" / "beam_simply_supported.json"
+
+with open(EXAMPLES_PATH, "r", encoding="utf-8") as f:
     example = json.load(f)
 
 st.markdown("Exemplo carregado automaticamente:")
 st.json(example)
 
-# -------------------------------------------------
+# ---------------------------
 # Processamento
-# -------------------------------------------------
+# ---------------------------
 result = run_beam_analysis(example)
 
-# -------------------------------------------------
+# ---------------------------
 # Modelo estrutural
-# -------------------------------------------------
+# ---------------------------
 st.header("2. Modelo estrutural adotado")
 
 st.markdown(
@@ -56,9 +70,9 @@ st.markdown(
     """
 )
 
-# -------------------------------------------------
+# ---------------------------
 # Memória de cálculo (blocos)
-# -------------------------------------------------
+# ---------------------------
 st.header("3. Memória de cálculo")
 
 report_lines = result["report"].split("\n")
@@ -84,9 +98,9 @@ for title, content in sections.items():
     with st.expander(title, expanded=(title == "1. DADOS DO PROBLEMA")):
         st.text("\n".join(content))
 
-# -------------------------------------------------
+# ---------------------------
 # Resultados numéricos
-# -------------------------------------------------
+# ---------------------------
 st.header("4. Resultados")
 
 col1, col2 = st.columns(2)
@@ -97,9 +111,9 @@ with col1:
 with col2:
     st.metric("Reação no apoio B (RB)", f"{result['reactions']['B']:.2f} kN")
 
-# -------------------------------------------------
+# ---------------------------
 # Diagramas
-# -------------------------------------------------
+# ---------------------------
 st.header("5. Diagramas")
 
 fig_v, ax_v = plt.subplots()
