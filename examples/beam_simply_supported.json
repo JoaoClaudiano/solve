@@ -1,0 +1,12 @@
+{
+  "length": 5.0,
+  "loads": [
+    {
+      "type": "distributed",
+      "value": 10.0,
+      "x_start": 0.0,
+      "x_end": 5.0
+    }
+  ],
+  "supports": ["pinned", "roller"]
+}
